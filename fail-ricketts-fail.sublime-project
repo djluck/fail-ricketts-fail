@@ -1,0 +1,9 @@
+{
+	"folders":
+	[
+		{
+			"path": "/C/workspace/fail-rickets-fail/src",
+			"folder_exclude_patterns" : [".meteor"]
+		}
+	]
+}

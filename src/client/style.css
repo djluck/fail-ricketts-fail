@@ -1,0 +1,28 @@
+/* CSS declarations go here */
+.fail{
+	/*float:left;*/
+	max-height:500px;
+	max-width:500px; 
+	margin:5px;
+    display: inline-block 
+}
+
+.title {
+	min-height:30px;
+	max-height:100px;
+	font-family: 'Sue Ellen Francisco', cursive;
+	font-size:25px;
+}
+
+.fail-container{
+    -moz-column-count:3;
+    -moz-column-gap: 10px;
+    -webkit-column-count:3;
+    -webkit-column-gap: 10px;
+    column-count: 3;
+    column-gap: 10px;
+}
+
+.favourite{
+	margin-left:5px;
+}
