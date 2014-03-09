@@ -13,15 +13,9 @@ Template.fail.events({
 })
 
 Template.fails.fails = function(){
-	return Session.get("ordered");
+	return reorderForMasonryLayout(Fails.orderedByMostLikes());
 };
 
-Template.fails.created = function(){
-	Deps.autorun(function(){
-		var byMostLiked = Fails.orderedByMostLikes();
-		Session.set("ordered", reorderForMasonryLayout(byMostLiked));
-	});
-}
 
 var reorderForMasonryLayout = function(fails){
 	var columns = 3;
@@ -30,12 +24,9 @@ var reorderForMasonryLayout = function(fails){
 	});
 
 	var lists = _.toArray(lists);
-
-	console.log(lists);
 	var transposed = transpose(lists);
-	console.log(transposed);
 
-	return _.flatten(transposed);
+	return _.filter(_.flatten(transposed), function(x) { return x !== undefined; });
 };
 
 var transpose = function(a) {

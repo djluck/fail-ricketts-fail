@@ -1,3 +1,39 @@
 
 - add in html (explain that this isn't what the talk is about)
 - demo the html (show off the handlebars syntax)
+
+
+
+Intro
+=====
+This will be a brief description of what meteor is and what we are going to be looking at. Mention:
+
+- It's a web framework that provides everything you need to build a web app: NodeJs for as the web server, MongoDB as the database and a bunch of clever JS libaries for client side development. As it's NodeJS, server and client side code is both written in Javascript.
+
+- It's early days yet. Only at version 0.72 and windows development is not yet officially supported, although an open source project currently exists to bring meteor to windows.
+
+- It's primary goal is to bring web applications in to the 21st century and make reactive apps easy.
+
+- This demonstration is going to focus around a toy app I've built called "fail ricketts fail". I'll spend the first half of the demo explaining some of the cool feature of Meteor and then during the second half, we will add some new features to the app.
+
+
+
+Demo the app 
+============
+- When we add a new fail, the new data gets rebound automatically to the UI. 
+	Meteor has the concept of reactive data sources. When the data source changes it notifies any dependencies (like the template) and that it should update to include the new information.
+
+- When we add a new fail, everyone can see the new fail without refreshing their browser.
+	Changes in data are pushed to all currently connected clients.
+
+- When we add a new fail, it appears for us instantly. It will appear for everyone else once the server has distributed the change. 
+	This is called latency compensation and Meteor does it to keep the UI feeling snappy. If the change fails at the server, then the new change is removed from the submitting client's view. 
+
+
+Adding some new features
+========================
+- Add the accounts-ui and accounts-password packages.
+
+
+
+
