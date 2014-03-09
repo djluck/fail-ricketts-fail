@@ -24,14 +24,11 @@ Fails.dislikeFail = function(id){
 };
 
 Fails.orderedByNewest = function(){
-	return sortFailsBy({ dateCreated : -1 });
+	return Fails.orderFailsBy({ dateCreated : -1 });
 };
 
-Fails.orderedByOldest = function(){
-	return sortFailsBy({ dateCreated : 1 });
-}
 
-var sortFailsBy = function(sortSpecifier){
+Fails.orderFailsBy = function(sortSpecifier){
 	return Fails.find({}, {sort: sortSpecifier}).fetch();
 };
 
@@ -69,11 +66,3 @@ var updateVotes = function(id, changeBy){
 	Fails.update(id, update, handleError);
 };
 
-
-// Fails.orderedByMostLikes = function(){
-// 	return sortFailsBy({votes : -1});
-// };
-
-// Fails.orderedByLeastLikes = function(){
-// 	return sortFailsBy({votes : 1});
-// };

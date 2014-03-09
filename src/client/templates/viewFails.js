@@ -7,8 +7,27 @@ Template.viewFailsMenu.events({
 });
 
 Template.fails.fails = function(){
-	return reorderForMasonryLayout(Fails.orderedByNewest());
+  var sortedFails = Fails.orderFailsBy(Session.get("orderedBy").sortBy);
+	return reorderForMasonryLayout(sortedFails);
 };
+
+Template.viewFailsMenu.events({
+  "click .sort-options a" : function(event){
+      Session.set("orderedBy", this);
+  }
+})
+
+Template.viewFailsMenu.sortOptions = [
+    { name : "New to Old", sortBy : { dateCreated : -1 }},
+    { name : "Old to New", sortBy : { dateCreated : 1 }},
+    { name : "Most liked", sortBy : { votes : -1 }},
+    { name : "Least liked", sortBy : { votes : 1 }}
+];
+
+Template.viewFailsMenu.isSelected = function(){
+  Session.setDefault("orderedBy", Template.viewFailsMenu.sortOptions[0]);
+  return Session.get("orderedBy").name === this.name;
+}
 
 /*
 * As we render each fail as an inline element and use CSS columns to render the fails, we loose the order of the fails. 
