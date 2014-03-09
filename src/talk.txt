@@ -1,18 +1,18 @@
-
-- add in html (explain that this isn't what the talk is about)
-- demo the html (show off the handlebars syntax)
-
-
-
 Intro
 =====
 This will be a brief description of what meteor is and what we are going to be looking at. Mention:
 
-- It's a web framework that provides everything you need to build a web app: NodeJs for as the web server, MongoDB as the database and a bunch of clever JS libaries for client side development. As it's NodeJS, server and client side code is both written in Javascript.
+- It's a web framework that provides everything you need to build a web app: 
+	- A web server, NodeJs
+	- A database, MongoDB
+	- A bunch of clever JS libaries for the client
+	- a CLI tool to manage all of these and additional features like pacakges.
 
-- It's early days yet. Only at version 0.72 and windows development is not yet officially supported, although an open source project currently exists to bring meteor to windows.
+- As it's NodeJS, server and client side code is both written in Javascript. Just one language!
 
-- It's primary goal is to bring web applications in to the 21st century and make reactive apps easy.
+- It's early days yet. Only at version 0.72 and windows development is not yet officially supported, although an open source project currently exists to bring meteor to windows (which is what we will be using today).
+
+- It's primary goal is to bring web applications is to make building reactive apps quick and easy.
 
 - This demonstration is going to focus around a toy app I've built called "fail ricketts fail". I'll spend the first half of the demo explaining some of the cool feature of Meteor and then during the second half, we will add some new features to the app.
 
@@ -20,18 +20,40 @@ This will be a brief description of what meteor is and what we are going to be l
 
 Demo the app 
 ============
+- Firing it up with the CLI command "meteor". This boots up a NodeJS webserver @ "http://localhost:3000" and a MongoDB instance.
+
 - When we add a new fail, the new data gets rebound automatically to the UI. 
-	Meteor has the concept of reactive data sources. When the data source changes it notifies any dependencies (like the template) and that it should update to include the new information.
+	Meteor has the concept of reactive data sources. When a data source changes it notifies any dependencies (like the template) and that it should update to include the new information. Data sources include:
+		- MongoDB records
+		- Session variables
+		- User state (is logged in or not)
 
 - When we add a new fail, everyone can see the new fail without refreshing their browser.
 	Changes in data are pushed to all currently connected clients.
 
 - When we add a new fail, it appears for us instantly. It will appear for everyone else once the server has distributed the change. 
 	This is called latency compensation and Meteor does it to keep the UI feeling snappy. If the change fails at the server, then the new change is removed from the submitting client's view. 
+	This is possible as HTML is never rendered on the server, only on the client. The server only sends data to each client and the client decides how to render it.
 
 
-Adding some new features
-========================
+Adding the ability to "Like" 
+============================
+1. Increment the ability to like. Wire up the event handler + call the addVotes function.
+2. We want a user to be able to like + dislike. If voted, then make them dislike.
+
+
+3. Session is persistent and anyone can add as many likes as they please from multiple windows. Need to add authentication and persistence of votes.
+	- Add accounts-ui & accounts-password packages
+	- Add login buttons
+	- Add a condition to only display likes if user is not logged in
+
+	We now have authentication and have stopped users who are not logged in from voting. Now we need to wire this in with the liking system so we can remember who voted for what.
+
+	
+
+
+
+
 - Add the accounts-ui and accounts-password packages.
 
 
@@ -43,3 +65,10 @@ feature progression
 
 
 
+things to talk about
+- templating language when we start adding templates
+- CLI
+- packages (accounts-ui + accounts-password)
+- database on the client side
+- structure of the app?
+- when we make a change, it refreshes on the server! Live code changes, client always has the most up-to-date version

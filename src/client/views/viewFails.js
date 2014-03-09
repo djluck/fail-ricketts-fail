@@ -10,7 +10,6 @@ Template.fails.fails = function(){
 	return reorderForMasonryLayout(Fails.orderedByNewest());
 };
 
-
 /*
 * As we render each fail as an inline element and use CSS columns to render the fails, we loose the order of the fails. 
 * Consider the list : [1, 2, 3, 4, 5, 6]. Using 3 CSS columns, this would be rendered on the page as:

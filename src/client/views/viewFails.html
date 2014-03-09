@@ -12,9 +12,10 @@
 </template>
 
 <template name="fail">
-	<div class="panel panel-default fail">
+	<div class="panel panel-default fail" data-id="{{_id}}">
 		<div class="title panel-heading clearfix">
 			"{{title}}"
+			{{>likeFail}}
 		</div>
 		<div class="panel-body">
 			<a href="{{url}}" target="_blank" class="img-thumbnail">
@@ -35,15 +36,6 @@
 	  	</div>
 	</div>
 </template>
-
-
-<!--
-	<div class="favourite btn-group pull-right">
-	   <button type="button" class="btn btn-default">
-		  <span class="glyphicon glyphicon-thumbs-up"> {{votes}}</span>
-		</button>
-	</div>
--->
 
 <!--
 		<div class="btn-group">
