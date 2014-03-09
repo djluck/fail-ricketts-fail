@@ -10,7 +10,7 @@ Likes.likeFail = function(failId){
 		userId : Meteor.userId() //the id of the user who liked a fail
 	};
 
-	Fails.insert(toInsert, handleError); //insert the fail and handle any errors asynchronously
+	Likes.insert(toInsert, handleError); //insert the fail and handle any errors asynchronously
 };
 
 Likes.isFailLiked = function(failId){
@@ -20,14 +20,16 @@ Likes.isFailLiked = function(failId){
 		userId : Meteor.userId() 
 	};
 
-	return Fails.findOne(isLikedSelector) !== null; //Query synchronously
+	return Likes.findOne(isLikedSelector) !== undefined; //Query synchronously
 }
 
 Likes.dislikeFail = function(failId){
-	var toRemove = { 
+	var toRemoveSelector = { 
 		failId : failId, 
 		userId : Meteor.userId() 
 	};
 
-	Fails.remove(toRemove, handleError); //remove the previously liked fail and handle any errors asynchronously
+	var toRemove = Likes.findOne(toRemoveSelector); //The client is restricted to deleting Mongo collection items one at a time
+
+	Likes.remove(toRemove._id, handleError); //remove the previously liked fail and handle any errors asynchronously
 }

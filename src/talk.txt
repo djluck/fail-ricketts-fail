@@ -49,7 +49,14 @@ Adding the ability to "Like"
 
 	We now have authentication and have stopped users who are not logged in from voting. Now we need to wire this in with the liking system so we can remember who voted for what.
 
-	
+	- Add the like methods and talk about them
+	- Publish the data on the server and subscribe on the client
+	- Wire in the new methods with the template
+
+	At this point we can demonstrate that data is consistent across a logged in user
+
+
+
 
 
 
@@ -69,6 +76,6 @@ things to talk about
 - templating language when we start adding templates
 - CLI
 - packages (accounts-ui + accounts-password)
-- database on the client side
+- database on the client side (it's cached, publications/subscriptions)
 - structure of the app?
 - when we make a change, it refreshes on the server! Live code changes, client always has the most up-to-date version

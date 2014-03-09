@@ -1,28 +1,28 @@
+Meteor.subscribe("user-likes");
+
 Template.likeFail.events({
   //for every "like" button, handle the click event
   "click .add-like" : function(event){
-    
-    if (isFailLiked(this._id)){
-      Fails.dislikeFail(this._id);
-      Session.set(failLikedKey(this._id), false);
+
+    //'this' refers to the data context the template is bound to. In this case, it will be a Fail.
+    var id = this._id; 
+
+    if (isFailLiked(id)){
+      Fails.dislikeFail(id);
+      Likes.dislikeFail(id);
     }
     else {
-      Fails.likeFail(this._id);
-      Session.set(failLikedKey(this._id), true);
+      Fails.likeFail(id);
+      Likes.likeFail(id);
     }
 
   }
-})
+});
 
 Template.likeFail.liked = function(){
   return isFailLiked(this._id);
-}
-
-var failLikedKey = function(id){
-  return "liked_" + id;
-}
+};
 
 var isFailLiked = function(id){
-  var liked = Session.get(failLikedKey(id));
-  return liked !== undefined && liked;
-}
+  return Likes.isFailLiked(id);
+};

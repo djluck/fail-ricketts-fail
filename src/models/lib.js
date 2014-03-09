@@ -6,4 +6,6 @@ handleError = function(err){
 	else{
 		console.log("Sync'd");
 	}
+
+	console.log(err);
 };
