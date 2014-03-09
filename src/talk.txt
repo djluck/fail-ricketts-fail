@@ -35,5 +35,11 @@ Adding some new features
 - Add the accounts-ui and accounts-password packages.
 
 
+feature progression 
+- add ability to favourite things
+- add ability to restrict votes per registered user
+- add ability to sort by number of votes
+
+
 
 

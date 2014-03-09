@@ -48,11 +48,18 @@
 	},
 	"file_history":
 	[
+		"/home/jimmy/workspace/fail-ricketts-fail/src/client/index.html",
+		"/home/jimmy/workspace/fail-ricketts-fail/src/client/index.js",
+		"/home/jimmy/workspace/fail-ricketts-fail/src/client/views/viewFails.js",
+		"/home/jimmy/workspace/fail-ricketts-fail/src/models/likes.js",
+		"/home/jimmy/workspace/fail-ricketts-fail/src/models/lib.js",
+		"/home/jimmy/workspace/fail-ricketts-fail/src/models/fails.js",
+		"/home/jimmy/workspace/fail-ricketts-fail/src/server/publications.js",
+		"/home/jimmy/workspace/fail-ricketts-fail/src/talk.txt",
 		"/home/jimmy/workspace/fail-ricketts-fail/src/client/views/viewFails.html",
 		"/home/jimmy/workspace/fail-ricketts-fail/src/client/style.css",
 		"/home/jimmy/workspace/fail-ricketts-fail/src/client/lib/bootstrap/css/bootstrap.min.css",
 		"/home/jimmy/workspace/fail-ricketts-fail/src/client/lib/bootstrap/css/bootstrap.css",
-		"/home/jimmy/workspace/fail-ricketts-fail/src/client/views/viewFails.js",
 		"/C/projects/dotmailer/dotMailerV4/Database/dotMailer_ClientsDB/Tables/dbo.ObjectTags.sql",
 		"/C/workspace/fail-rickets-fail/src/client/lib/currentPage.js",
 		"/C/workspace/fail-rickets-fail/src/models/fails.js",
@@ -116,6 +123,7 @@
 		"height": 93.0,
 		"where_history":
 		[
+			""
 		]
 	},
 	"find_state":
@@ -123,6 +131,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"updateVotes",
+			"})",
 			"fonts/",
 			"icon",
 			"};\n",
@@ -157,6 +167,7 @@
 		"regex": true,
 		"replace_history":
 		[
+			"updateVotes",
 			"#>\",",
 			"\"<#",
 			"\"<",

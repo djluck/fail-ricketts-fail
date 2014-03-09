@@ -6,17 +6,28 @@ Template.viewFailsMenu.events({
   }
 });
 
-Template.fail.events({
-	"click .btn-vote" : function(event){
-		Fails.likeFail(this._id);
-	}
-})
-
 Template.fails.fails = function(){
-	return reorderForMasonryLayout(Fails.orderedByMostLikes());
+	return reorderForMasonryLayout(Fails.orderedByNewest());
 };
 
 
+/*
+* As we render each fail as an inline element and use CSS columns to render the fails, we loose the order of the fails. 
+* Consider the list : [1, 2, 3, 4, 5, 6]. Using 3 CSS columns, this would be rendered on the page as:
+
+-------------
+| 1 | 3 | 5 |
+| 2 | 4 | 6 |
+-------------
+
+In order to allow the user to read left to right as they would normally do, if we transpose the array, it will be layed out like so:
+
+-------------
+| 1 | 2 | 3 |
+| 4 | 5 | 6 |
+-------------
+
+*/
 var reorderForMasonryLayout = function(fails){
 	var columns = 3;
 	var lists = _.groupBy(fails, function(element, index){
@@ -62,3 +73,12 @@ var transpose = function(a) {
 
   return t;
 };
+
+
+/*
+Template.fail.events({
+  "click .btn-vote" : function(event){
+    Fails.likeFail(this._id);
+  }
+})
+*/

@@ -23,13 +23,13 @@ Fails.dislikeFail = function(id){
 	updateVotes(id, -1);
 };
 
-Fails.orderedByMostLikes = function(){
-	return sortFailsBy({votes : -1});
+Fails.orderedByNewest = function(){
+	return sortFailsBy({ dateCreated : -1 });
 };
 
-Fails.orderedByLeastLikes = function(){
-	return sortFailsBy({votes : 1});
-};
+Fails.orderedByOldest = function(){
+	return sortFailsBy({ dateCreated : 1 });
+}
 
 var sortFailsBy = function(sortSpecifier){
 	return Fails.find({}, {sort: sortSpecifier}).fetch();
@@ -69,12 +69,11 @@ var updateVotes = function(id, changeBy){
 	Fails.update(id, update, handleError);
 };
 
-var handleError = function(err){
-	if (err){
-		alert("Failed to sync");
-		console.log(err);
-	}
-	else{
-		console.log("Sync'd");
-	}
-};
+
+// Fails.orderedByMostLikes = function(){
+// 	return sortFailsBy({votes : -1});
+// };
+
+// Fails.orderedByLeastLikes = function(){
+// 	return sortFailsBy({votes : 1});
+// };

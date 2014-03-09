@@ -1,2 +1,9 @@
 {
+	"folders":
+	[
+		{
+			"path": "src",
+      "folder_exclude_patterns" : [".*"]
+		}
+	]
 }

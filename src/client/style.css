@@ -1,4 +1,6 @@
-/* CSS declarations go here */
+@import url(http://fonts.googleapis.com/css?family=Sue+Ellen+Francisco);
+
+
 .fail{
 	/*float:left;*/
 	max-height:500px;
@@ -7,9 +9,8 @@
     display: inline-block 
 }
 
-@import url(http://fonts.googleapis.com/css?family=Carrois+Gothic+SC);
-* {
-	font-family: 'Carrois Gothic SC', sans-serif;
+.view-fails-menu{
+	margin-bottom:10px;
 }
 
 .title {
