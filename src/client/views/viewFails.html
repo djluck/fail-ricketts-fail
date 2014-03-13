@@ -11,6 +11,7 @@
 	</div>
 </template>
 
+
 <template name="fail">
 	<div class="panel panel-default fail" data-id="{{_id}}">
 		<div class="title panel-heading clearfix">
@@ -24,6 +25,20 @@
 	    </div>
 	</div>
 </template>
+
+
+<template name="likeFail">
+	<div class="favourite pull-right">
+		{{#if currentUser}}
+		   <button type="button" class="btn {{#if liked}} btn-success {{else}} btn-default {{/if}} add-like">
+			  <span class="glyphicon glyphicon-thumbs-up"> {{votes}}</span>
+			</button>
+		{{else}}
+		   <span class="badge glyphicon glyphicon-thumbs-up"> {{votes}}</span>
+		{{/if}}
+	</div>
+</template>
+
 
 <template name="viewFailsMenu">
 	<div class="row view-fails-menu">
@@ -53,18 +68,3 @@
 	  	</div>
 	</div>
 </template>
-
-<!--
-		<div class="btn-group">
-		  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-		    Sort by <span class="caret"></span>
-		  </button>
-		  <ul class="dropdown-menu" role="menu">
-		  	<li><a href="#">Most popular to least</a></li>
-		    <li><a href="#">Least popular to most</a></li>
-		    <li><a href="#">New to old</a></li>
-		    <li><a href="#">Old to new</a></li>
-		  </ul>
-		</div>
-	</div>
--->

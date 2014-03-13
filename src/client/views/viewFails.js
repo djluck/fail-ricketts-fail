@@ -1,5 +1,3 @@
-Meteor.subscribe("all-fails");
-
 Template.viewFailsMenu.events({
   "click #btn-add-fail" : function(event){
     Session.set("addingFail", true);
@@ -28,6 +26,34 @@ Template.viewFailsMenu.isSelected = function(){
   Session.setDefault("orderedBy", Template.viewFailsMenu.sortOptions[0]);
   return Session.get("orderedBy").name === this.name;
 }
+
+Template.likeFail.events({
+  //for every "like" button, handle the click event
+  "click .add-like" : function(event){
+
+    //'this' refers to the data context the template is bound to. In this case, it will be a Fail.
+    var id = this._id; 
+
+    if (isFailLiked(id)){
+      Fails.dislikeFail(id);
+      Likes.dislikeFail(id);
+    }
+    else {
+      Fails.likeFail(id);
+      Likes.likeFail(id);
+    }
+
+  }
+});
+
+Template.likeFail.liked = function(){
+  return isFailLiked(this._id);
+};
+
+var isFailLiked = function(id){
+  return Likes.isFailLiked(id);
+};
+
 
 /*
 * As we render each fail as an inline element and use CSS columns to render the fails, we loose the order of the fails. 

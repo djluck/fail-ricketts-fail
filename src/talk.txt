@@ -7,12 +7,12 @@ This will be a brief description of what meteor is and what we are going to be l
 	- A database, MongoDB
 	- A bunch of clever JS libaries for the client
 	- a CLI tool to manage all of these and additional features like pacakges.
+	
+- It's goal is to make building reactive apps quick and easy. 
 
-- As it's NodeJS, server and client side code is both written in Javascript. Just one language!
+- As it's NodeJS, server and client side code is both written in Javascript and MongoDB supports the store of JSON objects. Everything in one language (for better or worse)
 
 - It's early days yet. Only at version 0.72 and windows development is not yet officially supported, although an open source project currently exists to bring meteor to windows (which is what we will be using today).
-
-- It's primary goal is to bring web applications is to make building reactive apps quick and easy.
 
 - This demonstration is going to focus around a toy app I've built called "fail ricketts fail". I'll spend the first half of the demo explaining some of the cool feature of Meteor and then during the second half, we will add some new features to the app.
 
@@ -29,11 +29,12 @@ Demo the app
 		- User state (is logged in or not)
 
 - When we add a new fail, everyone can see the new fail without refreshing their browser.
-	Changes in data are pushed to all currently connected clients.
+	Changes in data are pushed to all currently connected clients via WebSockets/ long-polling AJAX requests.
 
 - When we add a new fail, it appears for us instantly. It will appear for everyone else once the server has distributed the change. 
 	This is called latency compensation and Meteor does it to keep the UI feeling snappy. If the change fails at the server, then the new change is removed from the submitting client's view. 
-	This is possible as HTML is never rendered on the server, only on the client. The server only sends data to each client and the client decides how to render it.
+	This is possible because HTML is never rendered on the server, only on the client. The server only sends data to each client and the client decides how to render it.
+	
 
 
 Adding the ability to "Like" 
@@ -57,6 +58,21 @@ Adding the ability to "Like"
 
 
 
+Talking points during adding like functionality
+===============================================
+1. Application structure
+	- how files are bundled onto the client
+	- how files are excluded from the client + server
+2. Packages 
+	- meteor's own repo
+	- community supplied by atmosphere
+3. Templating
+	- reactivity
+	- templates
+	- handlebars
+	- iteration
+4. Database access
+	- It's 
 
 
 

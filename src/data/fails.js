@@ -23,11 +23,6 @@ Fails.dislikeFail = function(id){
 	updateVotes(id, -1);
 };
 
-Fails.orderedByNewest = function(){
-	return Fails.orderFailsBy({ dateCreated : -1 });
-};
-
-
 Fails.orderFailsBy = function(sortSpecifier){
 	return Fails.find({}, {sort: sortSpecifier}).fetch();
 };
