@@ -1,20 +1,26 @@
 Intro
 =====
-This will be a brief description of what meteor is and what we are going to be looking at. Mention:
-
 - It's a web framework that provides everything you need to build a web app: 
 	- A web server, NodeJs
 	- A database, MongoDB
 	- A bunch of clever JS libaries for the client
 	- a CLI tool to manage all of these and additional features like pacakges.
+
+- The technology it uses is nothing new but the bundle is. A comparison of our stack would be something like AngularJS, ASP.NET, IIS, SignalR + SQL server
 	
 - It's goal is to make building reactive apps quick and easy. 
 
 - As it's NodeJS, server and client side code is both written in Javascript and MongoDB supports the store of JSON objects. Everything in one language (for better or worse)
 
-- It's early days yet. Only at version 0.72 and windows development is not yet officially supported, although an open source project currently exists to bring meteor to windows (which is what we will be using today).
+- It's early days yet. Only at version 0.72 and windows development is not yet officially supported, although an open source project currently exists to bring meteor to windows (which is what we will be using today). 
 
-- This demonstration is going to focus around a toy app I've built called "fail ricketts fail". I'll spend the first half of the demo explaining some of the cool feature of Meteor and then during the second half, we will add some new features to the app.
+- This demonstration is going to focus around a toy app I've built called "fail ricketts fail".
+
+- Alex clearly needed a better place to store the pistakes of Ben. Thanks Ben for being a good sport.
+
+- I'll spend the first half of the demo explaining some of the cool feature of Meteor and then during the second half, I'll briefly explain how it all works in the background.
+	
+
 
 
 
@@ -22,76 +28,92 @@ Demo the app
 ============
 - Firing it up with the CLI command "meteor". This boots up a NodeJS webserver @ "http://localhost:3000" and a MongoDB instance.
 
-- When we add a new fail, the new data gets rebound automatically to the UI. 
+- sorting
+- likes
+- date added
+
+- When we add a new fail, the new data gets rebound automagically to the UI. 
+	
+	- perform login
+	- add new fail
+		Ben learns Poi - http://i.imgur.com/pYa64yR.gif
+		Ben makes a G&T - http://3.bp.blogspot.com/-xiiQMQ8UAks/UsecBqq7xEI/AAAAAAAA2jA/l13Fl02ZUZ8/s1600/FGDrinkTricks.gif
+
+
+	Nowhere in this demo code is an explicit call to "DataBind", or anything similar
+
 	Meteor has the concept of reactive data sources. When a data source changes it notifies any dependencies (like the template) and that it should update to include the new information. Data sources include:
 		- MongoDB records
 		- Session variables
 		- User state (is logged in or not)
 
+
 - When we add a new fail, everyone can see the new fail without refreshing their browser.
 	Changes in data are pushed to all currently connected clients via WebSockets/ long-polling AJAX requests.
+
 
 - When we add a new fail, it appears for us instantly. It will appear for everyone else once the server has distributed the change. 
 	This is called latency compensation and Meteor does it to keep the UI feeling snappy. If the change fails at the server, then the new change is removed from the submitting client's view. 
 	This is possible because HTML is never rendered on the server, only on the client. The server only sends data to each client and the client decides how to render it.
 	
 
+Opening up the project
+======================
+- Client contains all client side JS + CSS. Every JS + CSS file will be bundled and sent to the client. Show bootstrap, etc. This will not be available on the server.
 
-Adding the ability to "Like" 
-============================
-1. Increment the ability to like. Wire up the event handler + call the addVotes function.
-2. We want a user to be able to like + dislike. If voted, then make them dislike.
+- Server contains sensitive server side code (examine later).
 
+- Public serves static content like images
 
-3. Session is persistent and anyone can add as many likes as they please from multiple windows. Need to add authentication and persistence of votes.
-	- Add accounts-ui & accounts-password packages
-	- Add login buttons
-	- Add a condition to only display likes if user is not logged in
-
-	We now have authentication and have stopped users who are not logged in from voting. Now we need to wire this in with the liking system so we can remember who voted for what.
-
-	- Add the like methods and talk about them
-	- Publish the data on the server and subscribe on the client
-	- Wire in the new methods with the template
-
-	At this point we can demonstrate that data is consistent across a logged in user
+- Any other folders (like data) are made available to the server and client
 
 
+Templates
+====================================
+	- (index.html) User declares <head>, <body> tags and render a bunch of templates.Templates are declared using the <template/> syntax. 
 
-Talking points during adding like functionality
-===============================================
-1. Application structure
-	- how files are bundled onto the client
-	- how files are excluded from the client + server
-2. Packages 
-	- meteor's own repo
-	- community supplied by atmosphere
-3. Templating
-	- reactivity
-	- templates
-	- handlebars
-	- iteration
-4. Database access
-	- It's 
+	- These are bundled into a html document and sent down to the user. 
 
+	- Allows hot changes (pushes down html change to client automatically, client allways has the latest view)
+
+	- Data is rendered using handlebars - data fields, if, each (find one of each)
+
+	- Any time a reactive datasource changes, (e.g. "fails"), the affected portion of the template will be re-rendered on the client
+
+	- Each template has a backing template object that exposes custom functions and manages things like events
+
+	- kind of like the "V + C" in "MVC"
 
 
+Data (likes.js)
+======================================
+	- I've declared data functions in my /Data folder, so they can be shared by the client + server.
 
-- Add the accounts-ui and accounts-password packages.
+	- There are no REST-like API endpoints by default. But you can add your own.
+
+	- all data is modified using a mongo API. It can be called by the server or the client to perform inserts/updates/deletes
+
+	- On the client, a data modification is applied to the cached data on the client and then makes an RPC to the server to perform the modification on the MongoDB instance
+
+	- validation code can be shared between the client + server (benefit of one language). See Fails.js.
+
+	- Being able to modify data from a client side API is obviously very dangerous. Meteor allows you to define rules to control who can modify data.
+
+	- By default, no client side calls can modify data, only read data
+
+	- All server side modifications are trusted.
+
+	- Publications determine what data the client will receive
+
+	- Client can subscribe/unsubscribe from a publication at any time during the application lifecycle.
 
 
-feature progression 
-- add ability to favourite things
-- add ability to restrict votes per registered user
-- add ability to sort by number of votes
 
 
 
 
-things to talk about
-- templating language when we start adding templates
-- CLI
-- packages (accounts-ui + accounts-password)
-- database on the client side (it's cached, publications/subscriptions)
-- structure of the app?
-- when we make a change, it refreshes on the server! Live code changes, client always has the most up-to-date version
+
+
+
+
+

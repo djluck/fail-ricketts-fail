@@ -1,21 +1,14 @@
 Template.viewFailsMenu.events({
   "click #btn-add-fail" : function(event){
-    Session.set("addingFail", true);
-  }
-});
-
-Template.fails.fails = function(){
-  var sortedFails = Fails.orderFailsBy(Session.get("orderedBy").sortBy);
-	return reorderForMasonryLayout(sortedFails);
-};
-
-Template.viewFailsMenu.events({
+      Session.set("addingFail", true);
+  },
   "click .sort-options a" : function(event){
       Session.set("orderedBy", this);
   }
-})
+});
 
 Template.viewFailsMenu.sortOptions = [
+    //The sortBy field declare MongoDB sort selectors
     { name : "New to Old", sortBy : { dateCreated : -1 }},
     { name : "Old to New", sortBy : { dateCreated : 1 }},
     { name : "Most liked", sortBy : { votes : -1 }},
@@ -23,9 +16,21 @@ Template.viewFailsMenu.sortOptions = [
 ];
 
 Template.viewFailsMenu.isSelected = function(){
-  Session.setDefault("orderedBy", Template.viewFailsMenu.sortOptions[0]);
-  return Session.get("orderedBy").name === this.name;
+    Session.setDefault("orderedBy", Template.viewFailsMenu.sortOptions[0]);
+    return Session.get("orderedBy").name === this.name;
 }
+
+
+Template.fails.fails = function(){
+    //when the value of the "orderBy" session variable changes, this will re-run the Fails.orderFailBy() query
+    var orderBy = Session.get("orderedBy").sortBy;
+
+    //when the Fails.orderBy() query is re-run, return value of this function will change and the fails Template will re-render
+    var sortedFails = Fails.orderFailsBy(orderBy);
+
+    return reorderForMasonryLayout(sortedFails);
+};
+
 
 Template.likeFail.events({
   //for every "like" button, handle the click event
@@ -34,7 +39,7 @@ Template.likeFail.events({
     //'this' refers to the data context the template is bound to. In this case, it will be a Fail.
     var id = this._id; 
 
-    if (isFailLiked(id)){
+    if (Likes.isFailLiked(id)){
       Fails.dislikeFail(id);
       Likes.dislikeFail(id);
     }
@@ -47,12 +52,11 @@ Template.likeFail.events({
 });
 
 Template.likeFail.liked = function(){
-  return isFailLiked(this._id);
+    return Likes.isFailLiked(this._id);
 };
 
-var isFailLiked = function(id){
-  return Likes.isFailLiked(id);
-};
+
+
 
 
 /*
@@ -117,12 +121,3 @@ var transpose = function(a) {
 
   return t;
 };
-
-
-/*
-Template.fail.events({
-  "click .btn-vote" : function(event){
-    Fails.likeFail(this._id);
-  }
-})
-*/
